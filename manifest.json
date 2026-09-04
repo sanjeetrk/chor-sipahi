@@ -1,0 +1,10 @@
+{
+  "name": "Raja Wazir Chor Sipahi",
+  "short_name": "ChorPolice",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f1016",
+  "theme_color": "#0f1016",
+  "orientation": "portrait",
+  "icons": []
+}
