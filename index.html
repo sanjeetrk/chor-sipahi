@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raja Wazir Chor Sipahi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="glow-sphere sphere-1"></div>
+  <div class="glow-sphere sphere-2"></div>
+
+  <div class="game-container">
+    <header>
+      <div class="creator-badge">Made by SANJEET</div>
+      <h1>Raja Wazir Chor Sipahi</h1>
+      <p class="tagline">Indian Folk Bluff & Guess Game</p>
+    </header>
+
+    <!-- Phase 1: Name Setup -->
+    <div id="player-setup-screen">
+      <p class="subtitle">Charon khiladi apna naam enter karein:</p>
+      <div class="input-grid">
+        <div class="input-wrap">
+          <span class="player-tag tag-1">P1</span>
+          <input type="text" id="name-input-0" placeholder="Player 1 Naam" value="Player 1" />
+        </div>
+        <div class="input-wrap">
+          <span class="player-tag tag-2">P2</span>
+          <input type="text" id="name-input-1" placeholder="Player 2 Naam" value="Player 2" />
+        </div>
+        <div class="input-wrap">
+          <span class="player-tag tag-3">P3</span>
+          <input type="text" id="name-input-2" placeholder="Player 3 Naam" value="Player 3" />
+        </div>
+        <div class="input-wrap">
+          <span class="player-tag tag-4">P4</span>
+          <input type="text" id="name-input-3" placeholder="Player 4 Naam" value="Player 4" />
+        </div>
+      </div>
+      <button class="primary-btn pulse-anim" onclick="initializePlayers()">Start Game 🚀</button>
+    </div>
+
+    <!-- Phase 2: Active Arena -->
+    <div id="game-arena-screen" class="hidden">
+      <div class="status-banner">
+        <p id="status-text">Click "Shuffle & Deal" to begin round!</p>
+      </div>
+
+      <div class="board">
+        <div class="card" id="card-0" onclick="handleCardClick(0)">
+          <span class="player-name" id="label-name-0">P1</span>
+          <span class="role-badge" id="label-role-0">❓</span>
+        </div>
+        <div class="card" id="card-1" onclick="handleCardClick(1)">
+          <span class="player-name" id="label-name-1">P2</span>
+          <span class="role-badge" id="label-role-1">❓</span>
+        </div>
+        <div class="card" id="card-2" onclick="handleCardClick(2)">
+          <span class="player-name" id="label-name-2">P3</span>
+          <span class="role-badge" id="label-role-2">❓</span>
+        </div>
+        <div class="card" id="card-3" onclick="handleCardClick(3)">
+          <span class="player-name" id="label-name-3">P4</span>
+          <span class="role-badge" id="label-role-3">❓</span>
+        </div>
+      </div>
+
+      <div class="action-btn-group">
+        <button id="deal-btn" class="primary-btn" onclick="startRound()">Shuffle & Deal 🔀</button>
+        <button id="reset-btn" class="danger-btn" onclick="confirmResetGame()">Reset & New Game 🔄</button>
+      </div>
+
+      <div class="scoreboard">
+        <h3>Live Leaderboard</h3>
+        <div class="table-container">
+          <table class="score-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Role</th>
+                <th>Round</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="score-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

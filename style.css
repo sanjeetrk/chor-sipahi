@@ -1,0 +1,333 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #0f1016;
+  color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background Ambient Lighting */
+.glow-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+}
+.sphere-1 {
+  width: 320px;
+  height: 320px;
+  background: rgba(245, 158, 11, 0.2);
+  top: 5%;
+  left: 10%;
+}
+.sphere-2 {
+  width: 360px;
+  height: 360px;
+  background: rgba(99, 102, 241, 0.2);
+  bottom: 5%;
+  right: 10%;
+}
+
+/* Main Container: Glassmorphic Panel */
+.game-container {
+  background: rgba(26, 29, 45, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 28px 24px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  width: 100%;
+  max-width: 520px;
+  position: relative;
+  z-index: 1;
+  margin: auto;
+}
+
+.creator-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+header h1 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fbcfe8, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #cbd5e1;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Input Styles */
+.input-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.input-wrap {
+  display: flex;
+  align-items: center;
+  background: #121420;
+  border: 1px solid #2e344e;
+  border-radius: 12px;
+  padding: 4px 8px;
+  transition: border-color 0.2s;
+}
+
+.input-wrap:focus-within {
+  border-color: #f59e0b;
+}
+
+.player-tag {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.tag-1 { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+.tag-2 { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+.tag-3 { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.tag-4 { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+
+.input-wrap input {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  outline: none;
+}
+
+/* Status Banner */
+.status-banner {
+  background: #131625;
+  border: 1px solid #282e4a;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+#status-text {
+  font-size: 0.95rem;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8fafc;
+  line-height: 1.4;
+}
+
+/* Interactive Cards Grid */
+.board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.card {
+  background: #1b1e32;
+  border: 2px solid #2c3253;
+  border-radius: 16px;
+  padding: 22px 12px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
+  user-select: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  background: #232742;
+  border-color: #4b5585;
+}
+
+.card.revealed {
+  background: linear-gradient(145deg, #103b39, #064e3b);
+  border-color: #10b981;
+}
+
+.player-name {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f59e0b;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.role-badge {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+/* Buttons */
+.action-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #0f172a;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+  transition: transform 0.15s, opacity 0.2s;
+  width: 100%;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.primary-btn:disabled {
+  background: #334155;
+  color: #64748b;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.danger-btn {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.danger-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+}
+
+/* Scoreboard */
+.scoreboard {
+  background: #121420;
+  border: 1px solid #232840;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.scoreboard h3 {
+  margin-bottom: 12px;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.score-table th, .score-table td {
+  padding: 10px 6px;
+  text-align: center;
+  border-bottom: 1px solid #1f2338;
+}
+
+.score-table th {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.score-table td:last-child {
+  font-weight: 700;
+  color: #10b981;
+}
+
+/* Rank Rows & Badges */
+.rank-badge {
+  font-weight: 700;
+  display: inline-block;
+  min-width: 24px;
+}
+
+.rank-1-row {
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.rank-1-row td:first-child {
+  color: #f59e0b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 440px) {
+  body {
+    padding: 24px 10px;
+  }
+  .game-container {
+    padding: 20px 12px;
+  }
+  .board {
+    gap: 10px;
+  }
+  .card {
+    padding: 16px 8px;
+  }
+  .role-badge {
+    font-size: 1.1rem;
+  }
+  .score-table th, .score-table td {
+    padding: 8px 4px;
+    font-size: 0.8rem;
+  }
+}
