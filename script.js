@@ -1,9 +1,7 @@
 // Register Service Worker with repository scope
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    // Dynamically gets '/chor-sipahi/' so it works on both GitHub Pages and localhost
-    const swPath = './sw.js';
-    navigator.serviceWorker.register(swPath)
+    navigator.serviceWorker.register('./sw.js')
       .then((reg) => {
         console.log('SW Registered cleanly! Scope:', reg.scope);
       })
@@ -13,7 +11,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Game Rules & Configurations
+// Game configurations
 const ROLES = [
   { name: "Raja", symbol: "👑 Raja" },
   { name: "Wazir", symbol: "📜 Wazir" },
@@ -33,8 +31,9 @@ let isGuessing = false;
 function initializePlayers() {
   players = [];
   for (let i = 0; i < 4; i++) {
-    const inputVal = document.getElementById(name-input-${i}).value.trim();
-    const playerName = inputVal !== "" ? inputVal : Player ${i + 1};
+    const inputEl = document.getElementById(`name-input-${i}`);
+    const inputVal = inputEl ? inputEl.value.trim() : "";
+    const playerName = inputVal !== "" ? inputVal : `Player ${i + 1}`;
 
     players.push({
       id: i,
@@ -44,7 +43,10 @@ function initializePlayers() {
       totalScore: 0
     });
 
-    document.getElementById(label-name-${i}).innerText = playerName;
+    const labelName = document.getElementById(`label-name-${i}`);
+    if (labelName) {
+      labelName.innerText = playerName;
+    }
   }
 
   document.getElementById("player-setup-screen").classList.add("hidden");
@@ -72,8 +74,8 @@ function startRound() {
   chorIndex = roundRoles.findIndex(r => r.name === "Chor");
 
   for (let i = 0; i < 4; i++) {
-    const cardEl = document.getElementById(card-${i});
-    const badgeEl = document.getElementById(label-role-${i});
+    const cardEl = document.getElementById(`card-${i}`);
+    const badgeEl = document.getElementById(`label-role-${i}`);
     cardEl.classList.remove("revealed");
 
     players[i].roundScore = 0;
@@ -94,7 +96,7 @@ function startRound() {
 
   isGuessing = true;
   document.getElementById("status-text").innerHTML = 
-    🔍 <b>${players[wazirIndex].name}</b> (Wazir) guess karein: In dono me se <b>Chor</b> kaun hai?;
+    `🔍 <b>${players[wazirIndex].name}</b> (Wazir) guess karein: In dono me se <b>Chor</b> kaun hai?`;
 
   document.getElementById("deal-btn").disabled = true;
   renderScoreboard();
@@ -115,25 +117,21 @@ function handleCardClick(clickedIndex) {
   players[sipahiIndex].roundScore = 500;
 
   if (clickedIndex === chorIndex) {
-    // Sahi Guess: Wazir gets 800, Chor gets 0
     players[wazirIndex].roundScore = 800;
     players[chorIndex].roundScore = 0;
-    statusEl.innerHTML = ✅ <b>Sahi Guess!</b> ${players[clickedIndex].name} Chor tha. Wazir (${players[wazirIndex].name}) ko mile 800 pts!;
+    statusEl.innerHTML = `✅ <b>Sahi Guess!</b> ${players[clickedIndex].name} Chor tha. Wazir (${players[wazirIndex].name}) ko mile 800 pts!`;
   } else {
-    // Galat Guess: Swap points (Chor gets 800, Wazir gets 0)
     players[wazirIndex].roundScore = 0;
     players[chorIndex].roundScore = 800;
-    statusEl.innerHTML = ❌ <b>Galat Guess!</b> ${players[clickedIndex].name} Sipahi tha. Chor (${players[chorIndex].name}) le gaya 800 pts!;
+    statusEl.innerHTML = `❌ <b>Galat Guess!</b> ${players[clickedIndex].name} Sipahi tha. Chor (${players[chorIndex].name}) le gaya 800 pts!`;
   }
 
-  // Finalize round and reveal all cards
   for (let i = 0; i < 4; i++) {
     players[i].totalScore += players[i].roundScore;
     players[i].currentRole = roundRoles[i].name;
 
-
-  const cardEl = document.getElementById(card-${i});
-    document.getElementById(label-role-${i}).innerText = roundRoles[i].symbol;
+    const cardEl = document.getElementById(`card-${i}`);
+    document.getElementById(`label-role-${i}`).innerText = roundRoles[i].symbol;
     cardEl.classList.add("revealed");
   }
 
@@ -144,7 +142,7 @@ function handleCardClick(clickedIndex) {
   renderScoreboard();
 }
 
-// Step 4: Render dynamically sorted leaderboard with ranks
+// Step 4: Render dynamic leaderboard with ranks
 function renderScoreboard() {
   const tbody = document.getElementById("score-table-body");
   tbody.innerHTML = "";
@@ -159,20 +157,20 @@ function renderScoreboard() {
       tr.classList.add("rank-1-row");
     }
 
-    const rankLabel = rankBadges[index] || #${index + 1};
+    const rankLabel = rankBadges[index] || `#${index + 1}`;
 
-    tr.innerHTML = 
+    tr.innerHTML = `
       <td><span class="rank-badge">${rankLabel}</span></td>
       <td><b>${p.name}</b></td>
       <td>${p.currentRole}</td>
       <td style="color: ${p.roundScore > 0 ? '#10b981' : '#94a3b8'};">+${p.roundScore}</td>
       <td>${p.totalScore}</td>
-    ;
+    `;
     tbody.appendChild(tr);
   });
 }
 
-// Step 5: Reset Game with browser confirmation
+// Step 5: Reset Game
 function confirmResetGame() {
   const userConfirmed = confirm("Kya aap game reset karke naye khiladiyo ke naam enter karna chahte hain?");
   
@@ -186,9 +184,9 @@ function confirmResetGame() {
     isGuessing = false;
 
     for (let i = 0; i < 4; i++) {
-      const cardEl = document.getElementById(card-${i});
+      const cardEl = document.getElementById(`card-${i}`);
       cardEl.classList.remove("revealed");
-      document.getElementById(label-role-${i}).innerText = "❓";
+      document.getElementById(`label-role-${i}`).innerText = "❓";
     }
 
     document.getElementById("deal-btn").disabled = false;
