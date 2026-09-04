@@ -1,9 +1,15 @@
-// Register Service Worker for Offline Execution
+// Register Service Worker with repository scope
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log('Service Worker Active'))
-      .catch((err) => console.error('Service Worker Error:', err));
+    // Dynamically gets '/chor-sipahi/' so it works on both GitHub Pages and localhost
+    const swPath = './sw.js';
+    navigator.serviceWorker.register(swPath)
+      .then((reg) => {
+        console.log('SW Registered cleanly! Scope:', reg.scope);
+      })
+      .catch((err) => {
+        console.error('SW failed to register:', err);
+      });
   });
 }
 
